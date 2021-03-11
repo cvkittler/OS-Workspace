@@ -1,0 +1,22 @@
+Step by Step
+0) the seed is read and srand initilized
+1) all porformers are created with a respective function and are passed an id
+2) the main function then releaces the "stageEntrance" mutex
+3) and its first come first serve on the stage, the stage has 4 threads
+    but only one performer can try and get on at a time because there is 
+    only one "stageEntrance" mutex
+4) if a soloist gets the enterance they check an "onStage" enum
+    if it is NONE then they get one and take all 4 spot mutexes for dancers
+    and jugglers they can enter if it is NONE or their respective profession
+    but to make things fair they have to be lucky on a rand() call to make things
+    fair and stop them from hogging the stage with their friends
+5) they incrament a people on stage varable by grabbing the "stageManager" mutex
+    incrementing the number and then releasing the "stageManager"
+6) they introduce themsleves and then perform
+7) once they are done they say goodbye and then releace their stage spot (mutex)
+8) in then decrease the peopleOnStage through the stageManager agian
+9) for the case of dancers and jugglers if the peopleOnStage is 0 then onStage is
+    set back to NONE
+10) there are several point where if they preformer fails to get the enterance
+    or if the stage has a differnet group going or the stage is full then they nap 
+11) once everyone has preformed all the threads are joined

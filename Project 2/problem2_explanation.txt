@@ -1,0 +1,37 @@
+Step by Step
+0) the seed is read and srand initilized
+1) the PPP is initilized to the size of TOTAL_PACKAGES, and then filled
+    - each package is a typedef (see line 38 of FedOops.c) that has 
+      a int id and enum steps[4]
+2) next all the semaphores are initilized
+3) 160 employee threads are made and fed info through a typedef employee (see line 44)
+    - int group - int team - int id
+4) all employees are given employeeBrain as thir function
+5) EmployeeBrain starts by parsing the args fed to it 
+6) then waits at a mutex so that all employees can be started around the same time
+7) the next thing that EB (employeeBrain) does is eneter a while 1 loop
+8) each EB uses the checkingLineSpot semaphore to check to see if its their turn
+    to pick up a package by seeing if their id number is in the ccorrisponding spot 
+    in the currrentRunner array
+9) if its their turn the code steps into an if statement where the semaphore pile is used
+    to take turns picking a package from the pile and then incrementing the global counter
+10) then enters a switch statement to print that they picked up the package and its instructions
+11) after printing the "pile" semaphore is releaced
+12) then the EB enters a while loop to do the work
+13) the EB starts by taking the 'onBoarding' semaphore
+14) the EB then checks if all the stations that it will need are open if they arent they
+    releace the 'onBoarding' semaphore
+15) if all the stations are open then the EB grabs them all and then releaces the 'onBoarding'
+    semaphore
+16) the EB then goes to each station and announces that they are doing work but they only
+    work for a grand total of 5 mili seconds
+17) the EB then waits on the convayer belt semaphore, when they get it they announce that]
+    the package is moving and then releace the semaphore on the previous station
+18) 16-17 are repeated for all steps and when done the EB announces that they put the package in
+    the truck and flip a flag so they can stop working
+19) the EB then tags in the next person on their team by incramenting the value for their team
+    in the currrentRunner array
+20) all the EB's exit when they have prossesed evey package
+21) all threads are joined and then there is a small sleep to let print statments catch up
+
+THE END
